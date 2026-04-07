@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VANISHITA MAURYA / DOSSIER 001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ee;
+    --orange: #c94a1a;
+    --orange-dark: #a03810;
+    --gray-bg: #e8e4de;
+    --gray-light: #d0ccc4;
+    --gray-mid: #999;
+    --gray-dark: #555;
+    --border: #222;
+    --red-stamp: #c41c1c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--gray-bg);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 44px;
+    border-bottom: 1px solid #333;
+  }
+
+  .nav-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-links a.active {
+    color: var(--orange);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .nav-classified {
+    background: var(--orange);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ─── HERO ────────────────────────────────────── */
+  .hero {
+    margin-top: 44px;
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    min-height: 420px;
+    border-bottom: 3px solid var(--black);
+    overflow: hidden;
+  }
+
+  .hero-photo {
+    position: relative;
+    background: #111;
+    overflow: hidden;
+  }
+
+  .hero-photo-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+  }
+
+  /* Mugshot ruler */
+  .ruler {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 36px;
+    background: #e8e4de;
+    border-right: 1px solid #555;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+  }
+
+  .ruler-mark {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: #333;
+    position: relative;
+    flex: 1;
+  }
+
+  .ruler-mark::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 8px;
+    height: 1px;
+    background: #333;
+  }
+
+  .ruler-mark.major { font-weight: 700; }
+  .ruler-mark.major::after { width: 14px; }
+
+  /* The figure (simulated mugshot photo area) */
+  .hero-figure {
+    flex: 1;
+    margin-left: 36px;
+    background: linear-gradient(160deg, #2a2a2a 0%, #111 60%, #0a0a0a 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Simulated figure silhouette */
+  .figure-silhouette {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .figure-silhouette svg {
+    height: 100%;
+    opacity: 0.85;
+  }
+
+  .hero-photo-caption {
+    position: absolute;
+    bottom: 18px;
+    left: 44px;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 14px;
+  }
+
+  .subject-id {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .subject-id small {
+    display: block;
+    font-size: 8px;
+    color: #888;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .subject-id strong {
+    display: block;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .stamp-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px dashed var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .stamp-circle span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  /* Hero right */
+  .hero-content {
+    padding: 42px 44px 36px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .intake-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .intake-label::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--orange);
+    display: block;
+  }
+
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 6vw, 76px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--black);
+    margin-bottom: 18px;
+  }
+
+  .hero-headline .accent {
+    color: var(--orange);
+  }
+
+  .hero-quote {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+    max-width: 340px;
+    margin-bottom: 30px;
+    border-left: none;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { background: var(--orange); }
+
+  .hero-cta-arrow {
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+
+  .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+  .hero-corner-stamp {
+    position: absolute;
+    bottom: 28px;
+    right: 32px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    transform: rotate(-12deg);
+  }
+
+  .hero-corner-stamp span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+
+  /* ─── EVIDENCE SECTION ────────────────────────── */
+  .evidence-section {
+    background: var(--gray-bg);
+    padding: 36px 0 52px;
+  }
+
+  .section-header {
+    padding: 0 32px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--black);
+    margin-bottom: 28px;
+  }
+
+  .section-log {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .section-exhibit {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0 32px;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1.5px solid var(--black);
+    padding: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+
+  .project-card:hover { transform: translateY(-2px); box-shadow: 4px 4px 0 var(--black); }
+  .project-card + .project-card { border-left: none; }
+
+  .project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .project-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .project-folder-icon {
+    font-size: 16px;
+    color: #999;
+  }
+
+  .project-img {
+    width: 100%;
+    height: 160px;
+    background: #1a1a1a;
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Simulated project screenshot */
+  .project-img-sim {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .project-img-sim.kinetic {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+
+  .project-img-sim.neural {
+    background: linear-gradient(135deg, #111 0%, #1a1a1a 50%, #222 100%);
+  }
+
+  /* Simulated UI elements in project screenshots */
+  .sim-ui {
+    position: absolute;
+    inset: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sim-row {
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1px;
+  }
+
+  .sim-row.short { width: 40%; }
+  .sim-row.medium { width: 65%; }
+  .sim-row.accent { background: rgba(201, 74, 26, 0.4); width: 30%; }
+  .sim-row.bright { background: rgba(255,255,255,0.18); }
+
+  .sim-sidebar {
+    position: absolute;
+    left: 12px; top: 12px; bottom: 12px;
+    width: 50px;
+    background: rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 6px;
+  }
+
+  .sim-dot {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 1px;
+  }
+
+  .sim-dot.active { background: rgba(201,74,26,0.6); }
+
+  .sim-content-area {
+    position: absolute;
+    left: 72px; top: 12px; right: 12px; bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  /* Neural sim */
+  .sim-keyboard {
+    position: absolute;
+    bottom: 20px; left: 20px; right: 20px;
+    height: 60px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 3px;
+    opacity: 0.6;
+  }
+
+  .sim-key {
+    background: rgba(255,255,255,0.15);
+    border-radius: 1px;
+  }
+
+  .sim-text-overlay {
+    position: absolute;
+    top: 18px; left: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #444;
+    margin-bottom: 14px;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--black);
+    color: var(--black);
+    background: transparent;
+  }
+
+  /* ─── PRISON RECORD ───────────────────────────── */
+  .prison-section {
+    background: var(--gray-bg);
+    padding: 52px 32px;
+  }
+
+  .prison-card {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 36px;
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .prison-top-badge {
+    position: absolute;
+    top: -14px;
+    right: 28px;
+    background: var(--orange);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    transform: rotate(2deg);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .prison-record-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.06em;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+
+  .prison-meta {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .prison-meta-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .prison-body {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 32px;
+  }
+
+  .prison-left { }
+
+  .prison-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .prison-section-label::before {
+    content: '■';
+    font-size: 6px;
+    color: var(--black);
+  }
+
+  .prison-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .prison-text .redacted {
+    background: var(--black);
+    color: transparent;
+    user-select: none;
+    padding: 0 2px;
+  }
+
+  .prison-text .highlight {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-style: italic;
+    background: rgba(201, 74, 26, 0.08);
+    padding: 1px 3px;
+  }
+
+  /* Skills log */
+  .skills-log { }
+
+  .skills-log-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 14px;
+  }
+
+  .skill-item {
+    margin-bottom: 10px;
+  }
+
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .skill-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .skill-pct {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .skill-bar-bg {
+    height: 4px;
+    background: var(--gray-light);
+    width: 100%;
+    position: relative;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: var(--black);
+    transition: width 1s ease;
+  }
+
+  .skill-bar-fill.high { background: var(--black); }
+  .skill-bar-fill.low { background: var(--gray-dark); }
+
+  .skills-thumb {
+    margin-top: 20px;
+    width: 100%;
+    height: 80px;
+    background: #1a1a1a;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .skills-thumb-sim {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #111 0%, #222 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skills-thumb-sim span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ─── APPLICATION FORM ────────────────────────── */
+  .application-section {
+    background: var(--gray-bg);
+    padding: 52px 32px;
+  }
+
+  .application-card {
+    background: var(--white);
+    border: 1.5px solid #ccc;
+    padding: 44px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .application-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .application-form-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--gray-mid);
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .form-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+  }
+
+  .form-input,
+  .form-textarea {
+    border: 1px solid #bbb;
+    background: #faf8f5;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--black);
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: #bbb;
+    font-size: 11px;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus { border-color: var(--black); }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+  }
+
+  .form-checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .form-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--black);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+  }
+
+  .form-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 1px;
+    font-size: 11px;
+    color: var(--black);
+  }
+
+  .form-checkbox-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: #666;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .submit-btn:hover { background: var(--orange); }
+
+  /* ─── FOOTER ──────────────────────────────────── */
+  footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--orange);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .footer-copy {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  .footer-links-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    color: #666;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #777;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--orange); }
+
+  .footer-disclaimer {
+    grid-column: 1 / -1;
+    border-top: 1px solid #222;
+    padding-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: #333;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+
+  /* ─── ANIMATIONS ──────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-headline {
+    animation: fadeUp 0.7s ease both;
+    animation-delay: 0.15s;
+  }
+
+  .hero-quote {
+    animation: fadeUp 0.7s ease both;
+    animation-delay: 0.3s;
+  }
+
+  .hero-cta {
+    animation: fadeUp 0.7s ease both;
+    animation-delay: 0.45s;
+  }
+
+  /* scan line overlay on photo */
+  .hero-figure::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.08) 3px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Noise texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Vanishita Maurya / Dossier 001</div>
+  <ul class="nav-links">
+    <li><a href="#hero" class="active">Assignment</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#prison">Prison_Log</a></li>
+  </ul>
+  <button class="nav-classified">Classified</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-photo">
+    <div class="hero-photo-inner">
+      <!-- Ruler -->
+      <div class="ruler">
+        <div class="ruler-mark major">6</div>
+        <div class="ruler-mark">5.5</div>
+        <div class="ruler-mark major">5</div>
+        <div class="ruler-mark">4.5</div>
+        <div class="ruler-mark major">4</div>
+        <div class="ruler-mark">3.5</div>
+        <div class="ruler-mark major">3</div>
+        <div class="ruler-mark">2.5</div>
+        <div class="ruler-mark major">2</div>
+        <div class="ruler-mark">1.5</div>
+        <div class="ruler-mark major">1</div>
+      </div>
+
+      <!-- Simulated mugshot figure -->
+      <div class="hero-figure">
+        <!-- Abstract silhouette using SVG -->
+        <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:65%;height:auto;opacity:0.55;">
+          <!-- head -->
+          <ellipse cx="100" cy="60" rx="42" ry="50" fill="#888"/>
+          <!-- neck -->
+          <rect x="82" y="108" width="36" height="28" fill="#777"/>
+          <!-- shoulders / torso -->
+          <path d="M30,136 Q100,120 170,136 L185,360 Q100,370 15,360 Z" fill="#666"/>
+          <!-- hair suggestion -->
+          <ellipse cx="100" cy="32" rx="44" ry="28" fill="#555"/>
+          <!-- collar -->
+          <path d="M70,136 L100,165 L130,136" stroke="#555" stroke-width="3" fill="none"/>
+        </svg>
+        <!-- Grid lines overlay -->
+        <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06;">
+          <line x1="150" y1="0" x2="150" y2="420" stroke="white" stroke-width="1"/>
+          <line x1="0" y1="210" x2="300" y2="210" stroke="white" stroke-width="1"/>
+        </svg>
+        <!-- Caption -->
+        <div class="hero-photo-caption">
+          <div class="subject-id">
+            <small>Subject No.</small>
+            <strong>VM-4620</strong>
+          </div>
+          <div class="stamp-circle">
+            <span>Official<br>Archive<br>Dossier<br>Official</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="hero-content">
+    <div class="intake-label">Intake Statement</div>
+    <h1 class="hero-headline">
+      Designing<br>
+      Experiences<br>
+      That <span class="accent">Lock</span><br>
+      <span class="accent">You In.</span>
+    </h1>
+    <p class="hero-quote">
+      "The digital landscape isn't just a platform—it's an architecture of attention. I build systems that are structural, permanent, and impossible to ignore."
+    </p>
+    <a href="#evidence" class="hero-cta">
+      Proceed to Evidence <span class="hero-cta-arrow">→</span>
+    </a>
+    <div class="hero-corner-stamp">
+      <span>Separate<br>Online<br>Dossier<br>Official</span>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE FOLDERS -->
+<section class="evidence-section" id="evidence">
+  <div class="section-header">
+    <div>
+      <div class="section-log">Inventory Log // 01</div>
+      <div class="section-title">Evidence_Folders</div>
+    </div>
+    <div class="section-exhibit">
+      EXHIBIT A through D<br>
+      Subject: Digital Architecture
+    </div>
+  </div>
+
+  <div class="projects-grid">
+    <!-- Project 1 -->
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-title">Project_Kinetic</div>
+        <span class="project-folder-icon">🗂</span>
+      </div>
+      <div class="project-img">
+        <div class="project-img-sim kinetic">
+          <div class="sim-sidebar">
+            <div class="sim-dot active"></div>
+            <div class="sim-dot"></div>
+            <div class="sim-dot"></div>
+            <div class="sim-dot active"></div>
+            <div class="sim-dot"></div>
+            <div class="sim-dot"></div>
+          </div>
+          <div class="sim-content-area">
+            <div class="sim-row bright" style="width:80%"></div>
+            <div class="sim-row" style="width:60%"></div>
+            <div class="sim-row accent" style="width:35%;height:12px;margin-top:4px;"></div>
+            <div style="height:8px"></div>
+            <div class="sim-row" style="width:90%"></div>
+            <div class="sim-row short"></div>
+            <div class="sim-row medium"></div>
+            <div class="sim-row short"></div>
+            <div class="sim-row" style="width:75%"></div>
+            <div class="sim-row medium"></div>
+          </div>
+        </div>
+      </div>
+      <p class="project-desc">A high-velocity navigation system designed for industrial manufacturing logistics.</p>
+      <div class="project-tags">
+        <span class="tag">UX/UX</span>
+        <span class="tag">Logistics</span>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-title">System_Neural</div>
+        <span class="project-folder-icon">🗂</span>
+      </div>
+      <div class="project-img">
+        <div class="project-img-sim neural">
+          <div class="sim-text-overlay">PREEMISH</div>
+          <div class="sim-keyboard">
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div>
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div><div class="sim-key"></div><div class="sim-key"></div>
+            <div class="sim-key"></div>
+          </div>
+        </div>
+      </div>
+      <p class="project-desc">Human–machine interface for algorithmic trading floors in high-stress environments.</p>
+      <div class="project-tags">
+        <span class="tag">HMI</span>
+        <span class="tag">Fintech</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRISON RECORD -->
+<section class="prison-section" id="prison">
+  <div class="prison-card">
+    <div class="prison-top-badge">High Security<br>File</div>
+
+    <div class="prison-record-title">Prison_Record: Maurya, V.</div>
+    <div class="prison-meta">
+      <div class="prison-meta-item">DOB: 06.12.90</div>
+      <div class="prison-meta-item">Cell: B-402</div>
+      <div class="prison-meta-item">Status: Active</div>
+      <div class="prison-meta-item">Clearance: LVL_3</div>
+    </div>
+
+    <div class="prison-body">
+      <div class="prison-left">
+        <div class="prison-section-label">Criminal History / Background</div>
+        <p class="prison-text">
+          Vanishita Maurya is a specialist in <span class="redacted">████████████████</span> systems. Her career began in the underground editorial scene, where she learned to weaponize <span class="highlight">SPACE GROTESK</span> against standard grid systems.
+        </p>
+
+        <div class="prison-section-label">Behavioral Observations</div>
+        <p class="prison-text">
+          Subject displays an unhealthy obsession with 0px border radii. She refuses to use standard 12-column grids, opting instead for <em>asymmetrical tension</em> and layered tonal shifts. Extreme expertise in Material Design 3 and industrial brutalism.
+        </p>
+      </div>
+
+      <div class="prison-right">
+        <div class="skills-log-title">Skills_Log</div>
+
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-name">Architectural UI</span>
+            <span class="skill-pct">[98%]</span>
+          </div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill high" style="width:98%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-name">Grid Subversion</span>
+            <span class="skill-pct">[95%]</span>
+          </div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill high" style="width:95%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-name">Brutalist UX</span>
+            <span class="skill-pct">[99%]</span>
+          </div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill high" style="width:99%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-name">Motion Trauma</span>
+            <span class="skill-pct">[72%]</span>
+          </div>
+          <div class="skill-bar-bg">
+            <div class="skill-bar-fill low" style="width:72%"></div>
+          </div>
+        </div>
+
+        <div class="skills-thumb">
+          <div class="skills-thumb-sim">
+            <span>Case File 001</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FOR RELEASE / CONTACT FORM -->
+<section class="application-section" id="contact">
+  <div class="application-card">
+    <div class="application-title">Application For Release</div>
+    <div class="application-form-id">Form ID: BY-2024 CONTYNC</div>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Applicant Name</label>
+        <input class="form-input" type="text" placeholder="FULL LEGAL NAME">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Communication Channel</label>
+        <input class="form-input" type="email" placeholder="SECURE.EMAIL@ADDR.COM">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Reason For Contact (State Your Case)</label>
+      <textarea class="form-textarea" placeholder="DESCRIBE THE PROJECT PARAMETERS..."></textarea>
+    </div>
+
+    <div class="form-checkbox-row">
+      <input class="form-checkbox" type="checkbox" id="ack">
+      <label class="form-checkbox-label" for="ack">
+        I understand that all communications are monitored by Maurya Archive security protocols.
+      </label>
+    </div>
+
+    <button class="submit-btn">Submit Petition</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Maurya_Archive</div>
+    <div class="footer-copy">
+      © 1992–2024 Maurya Archive. All Rights Reserved.<br>
+      Unauthorized duplication is a high-security<br>
+      violation prosecutable under Title 18 of the<br>
+      Archive Presentation Act.
+    </div>
+  </div>
+  <div>
+    <div class="footer-links-title">Directives</div>
+    <ul class="footer-links">
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Rules</a></li>
+      <li><a href="#">Data Media</a></li>
+      <li><a href="#">Design</a></li>
+      <li><a href="#">Interface</a></li>
+      <li><a href="#">Warden</a></li>
+    </ul>
+  </div>
+  <div class="footer-disclaimer">
+    All information contained in this archive is classified under the Maurya Archive Security Act. Unauthorized access is strictly prohibited.
+    This document is the exclusive property of Maurya Archive. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+
+  // Skill bars animate on scroll
+  const skillFills = document.querySelectorAll('.skill-bar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.style.width; // trigger
+      }
+    });
+  }, { threshold: 0.5 });
+  skillFills.forEach(b => {
+    const target = b.style.width;
+    b.style.width = '0%';
+    setTimeout(() => {
+      const barObs2 = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          b.style.width = target;
+          barObs2.disconnect();
+        }
+      }, { threshold: 0.1 });
+      barObs2.observe(b);
+    }, 100);
+  });
+</script>
+</body>
+</html>
