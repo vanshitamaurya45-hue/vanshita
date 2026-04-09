@@ -1,0 +1,701 @@
+import { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { Shield, ChevronRight, AlertTriangle } from 'lucide-react';
+import { ImageWithFallback } from './components/figma/ImageWithFallback';
+import PortraitColumn from '../imports/PortraitColumn/PortraitColumn';
+
+export default function App() {
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [formFocused, setFormFocused] = useState<string | null>(null);
+  const [buttonHovered, setButtonHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { scrollYProgress } = useScroll();
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+
+      // Track mouse position for button magnetic effect
+      const button = document.querySelector('.hero-button');
+      if (button) {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        setMousePosition({ x, y });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const projects = [
+    {
+      id: 'nykaa',
+      title: 'NYKAA APP REDESIGN',
+      description: 'With countless beauty products available on Nykaa, this redesign simplifies product discovery to help users make confident, effortless purchase decisions.',
+      image: null,
+      tags: ['UI/UX', 'MOBILE_APP']
+    },
+    {
+      id: 'pangeateach',
+      title: 'PANGEATEACH',
+      description: 'Pangea offers high-quality, fast turnaround solutions with innovative design and manufacturing. They provide personalized support throughout the process for high mix, low volume projects.',
+      image: null,
+      tags: ['WEB_DESIGN', 'BRANDING']
+    },
+    {
+      id: 'kargoplex',
+      title: 'KARGOPLEX',
+      description: 'Like Expedia and Travelocity transformed travel, Kargoplex simplifies global shipping with cost efficiency and real-time visibility.',
+      image: null,
+      tags: ['PLATFORM', 'UI/UX']
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#E8E3D6] text-[#1a1a1a] font-mono">
+      {/* Header */}
+      <motion.header 
+        className="fixed top-0 left-0 right-0 z-50 bg-[#E8E3D6]/95 backdrop-blur-sm border-b border-black/10"
+        style={{ opacity: headerOpacity }}
+      >
+        <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-wider"
+          >
+            VANSHITA_MAURYA
+          </motion.div>
+          
+          <nav className="flex items-center gap-8">
+            <motion.button
+              onClick={() => scrollToSection('evidence')}
+              className="text-sm tracking-wider hover:text-[#B91C1C] transition-colors relative group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              EVIDENCE
+              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#B91C1C] group-hover:w-full transition-all duration-300"></span>
+            </motion.button>
+          </nav>
+
+          <motion.button
+            onClick={() => scrollToSection('application')}
+            className="bg-[#B91C1C] text-white px-4 py-2 text-xs tracking-wider hover:bg-[#991B1B] transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            PRISON_RECORD
+          </motion.button>
+        </div>
+      </motion.header>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-12">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="space-y-8"
+            >
+              <motion.div 
+                className="flex items-center gap-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-12 h-12 rounded-full border-2 border-[#B91C1C] flex items-center justify-center"
+                >
+                  <Shield className="w-6 h-6 text-[#B91C1C]" />
+                </motion.div>
+                <span className="text-xs tracking-wider opacity-60">// SECURITY CLEARANCE: LEVEL //</span>
+              </motion.div>
+
+              <div>
+                <motion.h1
+                  className="text-5xl lg:text-6xl font-bold leading-tight mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  DESIGNING<br />
+                  EXPERIENCES<br />
+                  THAT <span className="text-[#B91C1C]">LOCK YOU IN.</span>
+                </motion.h1>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <motion.div
+                  className="relative"
+                  onMouseEnter={() => setButtonHovered(true)}
+                  onMouseLeave={() => setButtonHovered(false)}
+                >
+                  <motion.button
+                    onClick={() => scrollToSection('evidence')}
+                    className="hero-button relative bg-black text-white px-6 py-3 text-sm tracking-wider flex items-center gap-2 overflow-hidden group"
+                    animate={{
+                      x: buttonHovered ? mousePosition.x * 0.1 : 0,
+                      y: buttonHovered ? mousePosition.y * 0.1 : 0,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 15,
+                      mass: 0.1,
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 0 30px rgba(185, 28, 28, 0.4)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {/* Animated border glow */}
+                    <motion.div
+                      className="absolute inset-0 border-2 border-[#B91C1C]"
+                      animate={{
+                        opacity: buttonHovered ? [0, 1, 0] : 0,
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Shimmer effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      initial={{ x: "-100%" }}
+                      animate={{
+                        x: buttonHovered ? ["100%", "100%", "-100%"] : "-100%",
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        repeatDelay: 0.5,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Background color change */}
+                    <motion.div
+                      className="absolute inset-0 bg-[#B91C1C]"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{
+                        scale: buttonHovered ? 1 : 0,
+                        opacity: buttonHovered ? 1 : 0,
+                      }}
+                      transition={{
+                        duration: 0.3,
+                        ease: "easeOut",
+                      }}
+                    />
+
+                    {/* Button content */}
+                    <motion.span 
+                      className="relative z-10"
+                      animate={{
+                        letterSpacing: buttonHovered ? "0.15em" : "0.1em",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      PROCEED TO EVIDENCE
+                    </motion.span>
+                    
+                    <motion.div
+                      className="relative z-10"
+                      animate={{
+                        x: buttonHovered ? [0, 5, 0] : 0,
+                        rotate: buttonHovered ? [0, 15, 0] : 0,
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </motion.div>
+
+                    {/* Corner accents */}
+                    <motion.div
+                      className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#B91C1C]"
+                      animate={{
+                        opacity: buttonHovered ? 1 : 0,
+                        scale: buttonHovered ? 1 : 0.5,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    <motion.div
+                      className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#B91C1C]"
+                      animate={{
+                        opacity: buttonHovered ? 1 : 0,
+                        scale: buttonHovered ? 1 : 0.5,
+                      }}
+                      transition={{ duration: 0.2, delay: 0.05 }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#B91C1C]"
+                      animate={{
+                        opacity: buttonHovered ? 1 : 0,
+                        scale: buttonHovered ? 1 : 0.5,
+                      }}
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#B91C1C]"
+                      animate={{
+                        opacity: buttonHovered ? 1 : 0,
+                        scale: buttonHovered ? 1 : 0.5,
+                      }}
+                      transition={{ duration: 0.2, delay: 0.15 }}
+                    />
+                  </motion.button>
+
+                  {/* Particle effects around button */}
+                  {buttonHovered && (
+                    <>
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-1 h-1 bg-[#B91C1C] rounded-full"
+                          initial={{
+                            x: 0,
+                            y: 0,
+                            opacity: 0,
+                            scale: 0,
+                          }}
+                          animate={{
+                            x: Math.cos((i * Math.PI * 2) / 6) * 60,
+                            y: Math.sin((i * Math.PI * 2) / 6) * 60,
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: i * 0.1,
+                            ease: "easeOut",
+                          }}
+                          style={{
+                            left: "50%",
+                            top: "50%",
+                          }}
+                        />
+                      ))}
+                    </>
+                  )}
+                </motion.div>
+
+                <motion.div 
+                  className="text-xs opacity-60"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.6 }}
+                  transition={{ delay: 1 }}
+                >
+                  <div>UX_DESIGNER</div>
+                  <div>01_DESIGNER_UX_DESIGNER</div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Right - Portrait Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="h-[510px] w-full max-w-[626px] mx-auto"
+            >
+              <PortraitColumn />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section id="evidence" className="py-20 bg-[#D8D3C6]">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <div className="flex items-end justify-between border-b border-black/20 pb-4">
+              <div>
+                <h2 className="text-3xl font-bold mb-2">SECTION_02: EVIDENCE_FOLDERS</h2>
+                <p className="text-sm opacity-60 tracking-wide">
+                  PRIMARY RECORDS OF ARCHITECTURE, INTERFACE DESIGN
+                </p>
+              </div>
+              <motion.button
+                className="border border-black px-4 py-2 text-xs tracking-wider hover:bg-black hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                TOTAL_ENTRIES: 03
+              </motion.button>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                onMouseEnter={() => setHoveredProject(index)}
+                onMouseLeave={() => setHoveredProject(null)}
+                className="project-card relative bg-[#E8E3D6] border-2 border-black overflow-hidden group"
+                style={{
+                  '--mouse-x': '0px',
+                  '--mouse-y': '0px',
+                } as React.CSSProperties}
+              >
+                {/* Spotlight Effect */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(185, 28, 28, 0.4), transparent 40%)',
+                  }}
+                />
+
+                {/* Evidence Tag */}
+                <motion.div
+                  className="absolute top-4 right-4 bg-[#B91C1C] text-white px-3 py-1 text-xs tracking-wider z-10"
+                  initial={{ x: 100 }}
+                  whileInView={{ x: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                >
+                  EVIDENCE ACQUIRED
+                </motion.div>
+
+                {/* Project Image */}
+                <motion.div 
+                  className="aspect-[4/3] bg-gradient-to-br from-black/90 to-black/70 relative overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {index === 0 && (
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{
+                        opacity: hoveredProject === index ? [0.5, 0.8, 0.5] : 0.5,
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <div className="w-32 h-32 rounded-full border-4 border-white/30" />
+                    </motion.div>
+                  )}
+                  {index === 1 && (
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{
+                        rotate: hoveredProject === index ? 360 : 0,
+                      }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    >
+                      <div className="w-full h-[2px] bg-white/40" />
+                      <div className="w-[2px] h-full bg-white/40 absolute" />
+                    </motion.div>
+                  )}
+                  {index === 2 && (
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{
+                        y: hoveredProject === index ? [-10, 10, -10] : 0,
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <div className="w-20 h-40 border-2 border-white/30 rounded-full" />
+                    </motion.div>
+                  )}
+                  
+                  <motion.div
+                    className="absolute inset-0 bg-[#B91C1C]/0 group-hover:bg-[#B91C1C]/20 transition-colors duration-300"
+                  />
+                </motion.div>
+
+                {/* Project Info */}
+                <div className="p-6 space-y-4">
+                  <motion.h3
+                    className="text-xl font-bold tracking-wide"
+                    animate={{
+                      x: hoveredProject === index ? 5 : 0,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  
+                  <motion.p
+                    className="text-sm opacity-70 leading-relaxed"
+                    animate={{
+                      opacity: hoveredProject === index ? 1 : 0.7,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {project.description}
+                  </motion.p>
+
+                  <div className="flex gap-2 pt-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <motion.span
+                        key={tag}
+                        className="border border-black px-3 py-1 text-xs tracking-wider"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 + tagIndex * 0.1 + 0.4 }}
+                        whileHover={{ 
+                          backgroundColor: '#000',
+                          color: '#fff',
+                          scale: 1.05,
+                        }}
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Corner Accent */}
+                <motion.div
+                  className="absolute bottom-0 right-0 w-12 h-12 border-t-2 border-l-2 border-[#B91C1C]"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.5 }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Application Form Section */}
+      <section id="application" className="py-20">
+        <div className="max-w-[900px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="border-4 border-black bg-[#D8D3C6] p-8 lg:p-12 relative"
+          >
+            {/* Warning Stripes */}
+            <div className="absolute top-0 left-0 right-0 h-2 bg-black flex">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="flex-1"
+                  initial={{ backgroundColor: i % 2 === 0 ? '#000' : '#B91C1C' }}
+                  animate={{ 
+                    backgroundColor: i % 2 === 0 ? ['#000', '#B91C1C', '#000'] : ['#B91C1C', '#000', '#B91C1C'],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-start justify-between mb-8">
+              <div>
+                <motion.h2
+                  className="text-3xl font-bold mb-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  APPLICATION_FOR_RELEASE
+                </motion.h2>
+                <motion.p
+                  className="text-sm opacity-60"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 0.6 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  REQUEST CONTACT OR COLLABORATION WITH SUBJECT NO. 04.
+                </motion.p>
+              </div>
+
+              <motion.div
+                className="bg-[#B91C1C] text-white px-4 py-2 text-xs tracking-wider"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                FORM: ARC-00
+              </motion.div>
+            </div>
+
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <label className="block text-xs tracking-wider mb-2 opacity-60">
+                    SUBJECT_NAME
+                  </label>
+                  <motion.input
+                    type="text"
+                    placeholder="ENTER_IDENTITY..."
+                    className="w-full bg-transparent border-b-2 border-black/30 focus:border-[#B91C1C] outline-none py-2 px-1 text-sm transition-colors"
+                    onFocus={() => setFormFocused('name')}
+                    onBlur={() => setFormFocused(null)}
+                    whileFocus={{ scale: 1.01 }}
+                  />
+                  <motion.div
+                    className="h-[2px] bg-[#B91C1C] mt-[-2px]"
+                    initial={{ width: 0 }}
+                    animate={{ width: formFocused === 'name' ? '100%' : '0%' }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <label className="block text-xs tracking-wider mb-2 opacity-60">
+                    COMMUNICATION_CHANNEL
+                  </label>
+                  <motion.input
+                    type="email"
+                    placeholder="ENTER_COORDINATES..."
+                    className="w-full bg-transparent border-b-2 border-black/30 focus:border-[#B91C1C] outline-none py-2 px-1 text-sm transition-colors"
+                    onFocus={() => setFormFocused('email')}
+                    onBlur={() => setFormFocused(null)}
+                    whileFocus={{ scale: 1.01 }}
+                  />
+                  <motion.div
+                    className="h-[2px] bg-[#B91C1C] mt-[-2px]"
+                    initial={{ width: 0 }}
+                    animate={{ width: formFocused === 'email' ? '100%' : '0%' }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <label className="block text-xs tracking-wider mb-2 opacity-60">
+                  REASON_FOR_PETITION
+                </label>
+                <motion.textarea
+                  placeholder="STATE_YOUR_PURPOSE_CLEARLY..."
+                  rows={5}
+                  className="w-full bg-transparent border-2 border-black/30 focus:border-[#B91C1C] outline-none py-3 px-3 text-sm transition-colors resize-none"
+                  onFocus={() => setFormFocused('message')}
+                  onBlur={() => setFormFocused(null)}
+                  whileFocus={{ scale: 1.01 }}
+                />
+              </motion.div>
+
+              <motion.div
+                className="flex items-start gap-3 text-xs opacity-60 pt-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 0.6 }}
+                transition={{ delay: 0.8 }}
+              >
+                <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <p>
+                  BY SUBMITTING THIS PETITION, YOU ACKNOWLEDGE<br />
+                  ALL INFORMATION SUBMITTED WILL REMAIN LOGGED.
+                </p>
+              </motion.div>
+
+              <motion.button
+                type="submit"
+                className="group bg-[#B91C1C] text-white px-8 py-4 text-sm tracking-wider flex items-center gap-3 hover:bg-black transition-colors ml-auto"
+                whileHover={{ scale: 1.05, x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.9 }}
+              >
+                SUBMIT PETITION
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t-2 border-black py-8 relative">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 text-xs">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="font-bold tracking-wider"
+            >
+              VANSHITA_MAURYA
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="flex gap-6 tracking-wider opacity-60"
+            >
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#B91C1C] transition-colors">LINKEDIN</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#B91C1C] transition-colors">DRIBBBLE</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#B91C1C] transition-colors">BEHANCE</a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="opacity-60"
+            >
+              © RESTRICTED_PROPERTY_2026. ALL RIGHTS RESERVED.
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Footer Corner Badge */}
+        <motion.div
+          className="absolute bottom-4 right-4 w-12 h-12 bg-[#B91C1C] flex items-center justify-center"
+          whileHover={{ scale: 1.2, rotate: 180 }}
+          transition={{ duration: 0.3 }}
+        >
+          <AlertTriangle className="w-6 h-6 text-white" />
+        </motion.div>
+      </footer>
+    </div>
+  );
+}
